@@ -1,6 +1,7 @@
 module Lib
   ( someFunc
   , Notification (..)
+  , getIconLocation
   )
 where
 
@@ -8,14 +9,20 @@ where
 import Text.Printf (printf)
 
 -- 3rd Party
+import System.Directory (getAppUserDataDirectory)
 import System.Process (ProcessHandle, spawnCommand)
 
 data Notification = Notification { title :: String
                                  , message :: String }
+type IconLocation = String
 
-someFunc :: Notification -> IO ProcessHandle
-someFunc n = spawnCommand (formatCommand n)
 
-formatCommand :: Notification -> String
-formatCommand n = printf "notify-send \"%s\" \"%s\"" (title n) (message n)
+getIconLocation :: FilePath -> String
+getIconLocation appUserDataDir = appUserDataDir ++ "/github.png"
+
+someFunc :: Notification -> IconLocation -> IO ProcessHandle
+someFunc n iconLocation = spawnCommand (formatCommand n iconLocation)
+
+formatCommand :: Notification -> IconLocation -> String
+formatCommand n iconLocation = printf "notify-send -i %s \"%s\" \"%s\"" iconLocation (title n) (message n)
 
