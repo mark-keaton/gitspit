@@ -1,10 +1,21 @@
 module Lib
-    ( someFunc
-    ) where
+  ( someFunc
+  , Notification (..)
+  )
+where
 
-someFunc :: IO ()
-someFunc = putStrLn "hello world"
+-- Base/Prelude
+import Text.Printf (printf)
 
-otherFunc :: IO ()
-otherFunc = someFunc
+-- 3rd Party
+import System.Process (ProcessHandle, spawnCommand)
+
+data Notification = Notification { title :: String
+                                 , message :: String }
+
+someFunc :: Notification -> IO ProcessHandle
+someFunc n = spawnCommand (formatCommand n)
+
+formatCommand :: Notification -> String
+formatCommand n = printf "notify-send \"%s\" \"%s\"" (title n) (message n)
 
