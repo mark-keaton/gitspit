@@ -34,7 +34,15 @@ packages:
 # These entries can reference officially published versions as well as
 # forks / in-progress versions pinned to a git hash. For example:
 #
-# extra-deps:
+extra-deps:
+  - github-0.22
+  - binary-instances-1
+  - exceptions-0.10.2
+  - transformers-compat-0.6.5
+  - unordered-containers-0.2.10.0
+  - binary-orphans-1.0.1
+  - time-compat-1.9.2.2
+  - base-orphans-0.8.1
 # - acme-missiles-0.3
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a

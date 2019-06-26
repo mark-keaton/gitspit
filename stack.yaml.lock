@@ -3,7 +3,63 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    hackage: github-0.22@sha256:13f09e904248a40dd173c08f2859d0dfda178a7c27f88df20b70a0d5a7614757,6909
+    pantry-tree:
+      size: 7050
+      sha256: f290767f547b77ae323da3fb92a662c8a9e5fed1c23f626937e79ae983b84af0
+  original:
+    hackage: github-0.22
+- completed:
+    hackage: binary-instances-1@sha256:e7768b92f34bc40cc5cabecc5c143dee6ab4bcb5eb441d58e15a0b000d64940b,2591
+    pantry-tree:
+      size: 1035
+      sha256: e0425d75675a23270bdf570faee30edb28d3f19ba45e166b4ce1725a7b778043
+  original:
+    hackage: binary-instances-1
+- completed:
+    hackage: exceptions-0.10.2@sha256:de2be08eb73e1fb4115135c62f5d5f7ed9bdb9affff318687ac6cc0438b497f0,2360
+    pantry-tree:
+      size: 907
+      sha256: fa7427f86f94b5e830b4ed027f7ea2a4f9651da2bf85db9bce3307b97fb7f351
+  original:
+    hackage: exceptions-0.10.2
+- completed:
+    hackage: transformers-compat-0.6.5@sha256:50b00c57bf3fc379ec2477bfc261a2aebc983084488478adb29854f193af4696,5490
+    pantry-tree:
+      size: 1773
+      sha256: 3a15141e82214faba9ddcabaa63526273d4c8b7b1d9d6cbc643334bfe41fb2f8
+  original:
+    hackage: transformers-compat-0.6.5
+- completed:
+    hackage: unordered-containers-0.2.10.0@sha256:5e9b095a9283d9e2f064fec73a81a6b6ea0b7fda3f219a8175785d2d2a3de204,5199
+    pantry-tree:
+      size: 1415
+      sha256: dfc2d75f4e59c03e2c68be6909b577f26991367134eaac06a407e940e66856ae
+  original:
+    hackage: unordered-containers-0.2.10.0
+- completed:
+    hackage: binary-orphans-1.0.1@sha256:76c4afdcd2187af0f65dd647779f1b126c505ea0882992e4ee7ad847400a9c6b,2004
+    pantry-tree:
+      size: 285
+      sha256: 97ac4ee9ffd5d00e8fca2c68d5eb977ba31b21fd416c845dffcc06ae1c04b707
+  original:
+    hackage: binary-orphans-1.0.1
+- completed:
+    hackage: time-compat-1.9.2.2@sha256:9998dc1b77b5067572ab708e94750f1061152f342e92ad1aba38aae63581174d,4209
+    pantry-tree:
+      size: 3602
+      sha256: 724a63e80871bc6709a2d3ca1c3c7316048e99c9d50b0492f0eff25ce2cecbe0
+  original:
+    hackage: time-compat-1.9.2.2
+- completed:
+    hackage: base-orphans-0.8.1@sha256:defd0057b5db93257528d89b5b01a0fee9738e878c121c686948ac4aa5dded63,2927
+    pantry-tree:
+      size: 1272
+      sha256: e059f342ae4cd1edcbd90f5f69caab550a00cc64abcfd198ede188391ffe151f
+  original:
+    hackage: base-orphans-0.8.1
 snapshots:
 - completed:
     size: 496635
