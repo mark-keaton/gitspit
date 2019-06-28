@@ -26,6 +26,8 @@ dependencies:
 - github 
 - bytestring
 - text
+- time
+- vector
 
 library:
   source-dirs: src
