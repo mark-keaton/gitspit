@@ -4,6 +4,7 @@ module Lib
   ( someFunc
   , Notification(..)
   , extractAssignments
+  , extractBodies
   , getIconLocation
   , getAuth
   , getPRs
@@ -17,6 +18,7 @@ import           System.Environment             ( lookupEnv )
 import           Text.Printf                    ( printf )
 
 -- 3rd Party
+import           Data.Text                      ( Text )
 import           Data.Time.Clock                ( NominalDiffTime
                                                 , UTCTime
                                                 , diffUTCTime
@@ -64,15 +66,18 @@ getPRs = do
   PR.pullRequestsFor' auth "Tesorio" "Dashboard"
 
 isAssigned :: Int -> SimplePullRequest -> Bool
-isAssigned userId pr =
-  V.any (\user -> getUserId user == userId)
-        (PR.simplePullRequestRequestedReviewers pr)
-  where getUserId :: SimpleUser -> Int
-        getUserId user = untagId $ simpleUserId user
+isAssigned userId pr = V.any (\user -> getUserId user == userId)
+                             (PR.simplePullRequestRequestedReviewers pr)
+ where
+  getUserId :: SimpleUser -> Int
+  getUserId user = untagId $ simpleUserId user
 
 extractAssignments
   :: Int -> V.Vector SimplePullRequest -> V.Vector SimplePullRequest
 extractAssignments user = V.filter (isAssigned user)
+
+extractBodies :: V.Vector SimplePullRequest -> V.Vector (Maybe Text)
+extractBodies = fmap PR.simplePullRequestBody
 
 isRecentPR :: NominalDiffTime -> UTCTime -> SimplePullRequest -> Bool
 isRecentPR expectedDelta now pr = delta < expectedDelta

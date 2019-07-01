@@ -12,7 +12,7 @@ import           Lib
 appDataDir :: String
 appDataDir = "spit"
 
-currentUserId = 3433130
+currentUserId = 3433130  -- 55533
 
 -- main :: IO ProcessHandle
 main :: IO ()
@@ -24,5 +24,6 @@ main = do
   eitherPRs <- getPRs
   let prs = fromRight (error "") eitherPRs
       myPRs = extractAssignments currentUserId prs
-  print myPRs
+      bodies = sequence $ extractBodies myPRs
+  print bodies
   
