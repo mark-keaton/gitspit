@@ -1,16 +1,28 @@
 module Main where
 
-import System.Directory (getAppUserDataDirectory)
-import System.Process (ProcessHandle)
+import           Data.Either                    ( fromRight )
+import           System.Directory               ( getAppUserDataDirectory )
+import           System.Process                 ( ProcessHandle )
 
-import Lib
+import           GitHub.Data.Definitions        ( SimpleUser(..) )
+import           GitHub.Data.Id                 ( Id(..) )
+
+import           Lib
 
 appDataDir :: String
 appDataDir = "spit"
 
-main :: IO ProcessHandle
+currentUserId = 3433130
+
+-- main :: IO ProcessHandle
+main :: IO ()
 main = do
   appUserDataDir <- getAppUserDataDirectory appDataDir
   let iconLocation = getIconLocation appUserDataDir
-  let notification = Notification "Haskell" "Is Great"
-  someFunc notification iconLocation
+  -- let notification = Notification "Haskell" "Is Great"
+  -- someFunc notification iconLocation
+  eitherPRs <- getPRs
+  let prs = fromRight (error "") eitherPRs
+      myPRs = extractAssignments currentUserId prs
+  print myPRs
+  

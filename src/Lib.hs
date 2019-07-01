@@ -3,9 +3,10 @@
 module Lib
   ( someFunc
   , Notification(..)
+  , extractAssignments
   , getIconLocation
   , getAuth
-  , testPR
+  , getPRs
   )
 where
 
@@ -24,8 +25,9 @@ import           Data.Time.Clock                ( NominalDiffTime
 import qualified Data.Vector                   as V
 import           GitHub.Auth                    ( Auth(OAuth) )
 import           GitHub.Data.Definitions        ( Error
-                                                , SimpleUser
+                                                , SimpleUser(..)
                                                 )
+import           GitHub.Data.Id                 ( untagId )
 import           GitHub.Data.PullRequests       ( SimplePullRequest )
 import qualified GitHub.Endpoints.PullRequests as PR
 import           System.Directory               ( getAppUserDataDirectory )
@@ -57,16 +59,19 @@ getAuth = do
   let auth  = fmap OAuth passB
   return auth
 
-testPR = do
+getPRs = do
   auth <- getAuth
-  return $ PR.pullRequestsFor' auth "Tesorio" "Dashboard"
+  PR.pullRequestsFor' auth "Tesorio" "Dashboard"
 
-isAssigned :: SimpleUser -> SimplePullRequest -> Bool
-isAssigned user pr =
-  V.any (user ==) (PR.simplePullRequestRequestedReviewers pr)
+isAssigned :: Int -> SimplePullRequest -> Bool
+isAssigned userId pr =
+  V.any (\user -> getUserId user == userId)
+        (PR.simplePullRequestRequestedReviewers pr)
+  where getUserId :: SimpleUser -> Int
+        getUserId user = untagId $ simpleUserId user
 
 extractAssignments
-  :: SimpleUser -> V.Vector SimplePullRequest -> V.Vector SimplePullRequest
+  :: Int -> V.Vector SimplePullRequest -> V.Vector SimplePullRequest
 extractAssignments user = V.filter (isAssigned user)
 
 isRecentPR :: NominalDiffTime -> UTCTime -> SimplePullRequest -> Bool
