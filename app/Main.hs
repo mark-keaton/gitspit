@@ -12,7 +12,7 @@ import           Lib
 appDataDir :: String
 appDataDir = "spit"
 
-currentUserId = 3433130  -- 55533
+currentUserId = 55533 -- 3433130  --
 
 -- main :: IO ProcessHandle
 main :: IO ()
@@ -22,8 +22,10 @@ main = do
   -- let notification = Notification "Haskell" "Is Great"
   -- someFunc notification iconLocation
   eitherPRs <- getPRs
-  let prs = fromRight (error "") eitherPRs
-      myPRs = extractAssignments currentUserId prs
+  prs <- case eitherPRs of
+    Left err -> fail (show err)
+    Right prs -> return prs
+  let myPRs = extractAssignments currentUserId prs
       bodies = sequence $ extractBodies myPRs
   print bodies
   
