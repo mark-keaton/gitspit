@@ -4,6 +4,7 @@ module Lib
   ( someFunc
   , Notification(..)
   , extractAssignments
+  , extractRecentAssignments 
   , extractBodies
   , getIconLocation
   , getAuth
@@ -75,6 +76,15 @@ isAssigned userId pr = V.any (\user -> getUserId user == userId)
 extractAssignments
   :: Int -> V.Vector SimplePullRequest -> V.Vector SimplePullRequest
 extractAssignments user = V.filter (isAssigned user)
+
+extractRecentAssignments
+  :: Int
+  -> NominalDiffTime
+  -> UTCTime
+  -> V.Vector SimplePullRequest
+  -> V.Vector SimplePullRequest
+extractRecentAssignments userId expectedDelta now =
+  V.filter $ (&&) <$> isRecentPR expectedDelta now <*> isAssigned userId
 
 extractBodies :: V.Vector SimplePullRequest -> V.Vector (Maybe Text)
 extractBodies = fmap PR.simplePullRequestBody
